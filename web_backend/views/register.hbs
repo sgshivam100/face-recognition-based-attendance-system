@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <title>Registration Page</title>
+</head>
+<body>
+    <nav>
+        <h4>Attendance System</h4>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        </ul>
+    </nav>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                Registration Form
+            </div>
+            <div class="card-body">
+                <form action="/auth/register" method="POST">
+
+                    <div class="form-group">
+                        <label>Select User Type</label>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="facultyRadio" name="userType" value="faculty" required>
+                            <label class="form-check-label" for="facultyRadio">Faculty</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="studentRadio" name="userType" value="student" required>
+                            <label class="form-check-label" for="studentRadio">Student</label>
+                        </div>
+                    </div>
+
+                    <!-- Additional fields for faculty registration -->
+                    <div id="facultyFields" style="display: none;">
+                        <div class="form-group">
+                            <label for="facultyId">Faculty ID</label>
+                            <input type="text" class="form-control" id="facultyId" placeholder="Enter Faculty ID" name="facultyId" required>
+                        </div>
+                    </div>
+
+                    <!-- Additional fields for student registration -->
+                    <div id="studentFields" style="display: none;">
+                        <div class="form-group">
+                            <label for="rollNo">Roll No</label>
+                            <input type="text" class="form-control" id="rollNo" placeholder="Enter Roll No" name="rollNo" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordConfirm">Confirm Password</label>
+                        <input type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Password" name="passwordConfirm" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+
+                    {{#if message}}
+                      <h4 class="alert alert-danger mt-4">{{message}}</h4>
+                    {{/if}}
+
+                    <script>
+                    // Script to toggle display and required attribute of additional fields based on user type selection
+                    document.querySelectorAll('input[name="userType"]').forEach(function(radio) {
+                        radio.addEventListener('change', function () {
+                            var facultyFields = document.getElementById('facultyFields');
+                            var studentFields = document.getElementById('studentFields');
+                            var facultyIdInput = document.getElementById('facultyId');
+                            var rollNoInput = document.getElementById('rollNo');
+
+                            if (this.value === 'faculty') {
+                                facultyFields.style.display = 'block';
+                                studentFields.style.display = 'none';
+                                facultyIdInput.required = true;
+                                rollNoInput.required = false;
+                            } else if (this.value === 'student') {
+                                facultyFields.style.display = 'none';
+                                studentFields.style.display = 'block';
+                                facultyIdInput.required = false;
+                                rollNoInput.required = true;
+                            }
+                        });
+                    });
+                    </script>
+                   
+                   
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+</body>
+</html>

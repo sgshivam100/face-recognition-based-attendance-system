@@ -1,0 +1,35 @@
+<!-- course-registration.hbs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content here -->
+</head>
+<body>
+    <!-- Navigation bar and other common elements -->
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                Course Registration
+            </div>
+            <div class="card-body">
+                <h2>Register for Courses</h2>
+
+                <!-- Course Registration Form -->
+                <form action="/register-course" method="POST">
+                    <label for="course">Select Course:</label>
+                    <select name="course" id="course">
+                        {{#each courses}}
+                            <option value="{{ this }}">{{ this }}</option>
+                        {{/each}}
+                    </select>
+
+                    <button type="submit" class="btn btn-primary">Enroll in Course</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Add your script tags and other body content here -->
+</body>
+</html>

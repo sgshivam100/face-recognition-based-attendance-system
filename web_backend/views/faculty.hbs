@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content here -->
+    <!-- Add these CDN links to your head -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+    <!-- Update the form submission handling -->
+
+</head>
+<body>
+    <!-- Navigation bar and other common elements -->
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                Faculty Profile
+            </div>
+            <div class="card-body">
+                <h2>Welcome, Dr. {{ facultyName }}</h2>
+                <p>Email: {{ facultyEmail }}</p>
+                <p>Faculty ID: {{ facultyID }}</p>
+                <!-- Display courses taught -->
+                <h5>Courses Taught:</h5>
+                <ul>
+                    {{#each coursesTaught}}
+                        <li>{{ this }}</li>
+                    {{/each}}
+                </ul>
+
+                <!-- Form for fetching attendance -->
+                <h5>Check Students Attendance Coursewise</h5>
+                <form action="/get-attendance" method="POST">
+                    <label for="course">Select Course:</label>
+                    <select name="course" id="course">
+                        {{#each coursesTaught}}
+                            <option value="{{ this }}">{{ this }}</option>
+                        {{/each}}
+                    </select>
+
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" name="startDate" required>
+
+                    <label for="endDate">End Date:</label>
+                    <input type="date" name="endDate" required>
+
+                    <button type="submit" class="btn btn-primary">Get Attendance</button>
+                </form>
+
+                 <br>
+                  <br>
+                  <h4>Upload Images for Attendance</h4>
+
+                <!-- Form for uploading images for attendance -->
+               <form  action="/upload_attendance_images" method="POST" enctype="multipart/form-data">
+                <label for="uploadCourse">Select Course:</label>
+                <select name="uploadCourse" id="uploadCourse">
+                    {{#each coursesTaught}}
+                        <option value="{{ this }}">{{ this }}</option>
+                    {{/each}}
+                </select>
+
+                <div>
+                    <label for="imageUpload">Upload Image1:</label>
+                    <input type="file" name="imageUpload" accept="image/*" required>
+                    <br>
+
+                    <label for="imageUpload">Upload Image2:</label>
+                    <input type="file" name="imageUpload" accept="image/*" required>
+                    <br>
+
+                    <label for="imageUpload">Upload Image3:</label>
+                    <input type="file" name="imageUpload" accept="image/*" required>
+                    <br>
+
+                    <label for="imageUpload">Upload Image4:</label>
+                    <input type="file" name="imageUpload" accept="image/*" required>
+                    <br>
+
+                    <button type="submit" class="btn btn-success">Upload</button>
+                </div>
+            </form>
+
+
+
+                 <br>
+             <!-- Display success message modal if present -->
+                {{#if successMessage}}
+                    <!-- Modal -->
+                    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ successMessage }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trigger the modal -->
+                    <!-- Trigger the modal -->
+                    <script>
+                        var $j = jQuery.noConflict();
+                        $j(document).ready(function(){
+                            $j('#successModal').modal('show');
+                        });
+                    </script>
+
+                {{/if}}
+
+                <!-- Display attendance data if present -->
+                {{#if attendanceData}}
+                    <h3>Attendance Data:</h3>
+                    <ul>
+                        {{#each attendanceData as |attendance|}}
+                            <li>{{ attendance.name }} - {{ attendance.status }}</li>
+                        {{/each}}
+                    </ul>
+                {{/if}}
+
+
+
+                <!-- Add other faculty profile information as needed -->
+
+                <!-- Logout button -->
+                <form action="/logout" method="POST">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Add your script tags and other body content here -->
+</body>
+</html>

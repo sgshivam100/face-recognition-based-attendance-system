@@ -1,0 +1,71 @@
+<!-- attendance.hbs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script>
+    // Define custom helper for equality check
+    Handlebars.registerHelper('isEqual', function (a, b, options) {
+        return a === b ? options.fn(this) : options.inverse(this);
+    });
+
+    // Define a helper function to increment a counter
+    Handlebars.registerHelper('inc', function (value, options) {
+        return parseInt(value) + 1;
+    });
+  </script>
+ 
+
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                Attendance
+            </div>
+            <div class="card-body">
+                <h2>Attendance</h2>
+
+                <!-- Display attendance data in tabular format -->
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Roll No.</th>
+                            {{#each organizedData.attendanceDataByRollNo}}
+                                <th>{{ @key }}</th>
+                            {{/each}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each organizedData.attendanceDataByRollNo}}
+                            <tr>
+                                <td>{{ inc @index }}</td> <!-- Use the inc helper to increment the counter -->
+                                <td>{{ @key }}</td>
+                                {{#each this}}
+                                  <td>
+                                    {{#isEqual this.status 'Present'}}P{{/isEqual}}
+                                    {{#isEqual this.status 'Absent'}}A{{/isEqual}}
+                                    {{#isEqual this.status 'Leave'}}L{{/isEqual}}
+                                </td>
+                                    {{!-- <td> {{ this.status }}</td> --}}
+                                {{/each}}
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+
+                <!-- Back button to go back to faculty profile -->
+                <a href="/faculty" class="btn btn-secondary">Back to Faculty Profile</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add your script tags and other body content here -->
+    
+</body>
+</html>

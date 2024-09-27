@@ -1,0 +1,51 @@
+{
+	"folders": [
+		{
+			"path": "E:/WebDev"
+		},
+		{
+			"path": "E:/WebDev/project1"
+		},
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "E:/login"
+		},
+		{
+			"path": "../../../network_lab/lab5"
+		},
+		{
+			"path": "E:/face_backend"
+		},
+		{
+			"path": "E:/faceBeta3"
+		},
+		{
+			"name": "mirotalk",
+			"path": "C:/Users/sg100/OneDrive/Desktop/net_project/mirotalk"
+		},
+		{
+			"path": "../../faceBeta3"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "E:/projects_js"
+		},
+		{
+			"path": "C:/Users/sg100/Desktop/cv_endsem"
+		},
+		{
+			"path": "E:/CSES"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "WebDev",
+		"files.associations": {
+			"random": "cpp",
+			"iostream": "cpp"
+		}
+	}
+}

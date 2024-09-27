@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4R8b0Tmg5KJwDNoK/z6E2Et6QyjWMIcF" crossorigin="anonymous">
+
+    <!-- Bootstrap JS and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js" integrity="sha384-b4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4R8b0Tmg5KJwDNoK/z6E2Et6QyjWMIcF" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4R8b0Tmg5KJwDNoK/z6E2Et6QyjWMIcF" crossorigin="anonymous"></script>
+</head>
+<body class="bg-light">
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                Student Profile
+            </div>
+            <div class="card-body">
+                <h2 class="mb-4">Welcome, {{ studentName }}</h2>
+                <p><strong>Email:</strong> {{ studentEmail }}</p>
+                <p><strong>Roll No.:</strong> {{ rollno }}</p>
+
+                {{#if registeredCourses.length}}
+                    <h3>Registered Courses:</h3>
+                    <ul>
+                        {{#each registeredCourses}}
+                            <li>{{ this }}</li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    <p>No courses registered yet.</p>
+                {{/if}}
+
+                <div class="mb-4">
+                    <h3>Check Attendance Coursewise</h3>
+                    <form action="/get-attendance-student" method="POST" class="form-inline">
+                        <label for="course" class="mr-2">Select Course:</label>
+                        <select name="course" id="course" class="form-control mr-2">
+                            {{#each registeredCourses}}
+                                <option value="{{ this }}">{{ this }}</option>
+                            {{/each}}
+                        </select>
+
+                        <label for="startDate" class="mr-2">Start Date:</label>
+                        <input type="date" name="startDate" class="form-control mr-2" required>
+
+                        <label for="endDate" class="mr-2">End Date:</label>
+                        <input type="date" name="endDate" class="form-control mr-2" required>
+
+                        <button type="submit" class="btn btn-primary">Get Attendance</button>
+                    </form>
+                </div>
+
+                    
+<h3>Attendance Percentages Coursewise:</h3>
+<ul>
+  {{#each attendancePercentages as |course percentage|}}
+    <li>{{ percentage }}   :    {{ course }}%</li>
+  {{/each}}
+</ul>
+
+
+
+
+
+                <a href="/register-course" class="btn btn-success mr-2">Register for a Course</a>
+
+                <form action="/logout" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
